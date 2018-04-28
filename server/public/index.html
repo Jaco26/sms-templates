@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SMS Auto Generated Templates</title>
+  
+</head>
+<body>
+
+    <div id="app">
+        
+        <button v-on:click="generateMessage()">Generate Message</button>
+        <!-- Guests -->
+        <h3>Guests</h3>
+        <ul>
+            <li v-for="guest in guests" :key="guest.id">
+                Name: {{guest.firstName + ' ' + guest.lastName}} <br>
+                Room Reserved: {{guest.reservation.roomNumber}} <br>
+                Start: {{new Date(guest.reservation.startTimestamp * 1000).toLocaleString()}} <br>
+                End: {{new Date(guest.reservation.endTimestamp * 1000).toLocaleString()}} <br>
+                <label>Select this customer</label>
+                <input type="radio" v-bind:value="guest.id" v-model="chosenGuestId">
+            </li>
+        </ul>
+
+        <!-- Companies -->
+        <h3>Companies</h3>
+        <ul>
+            <li v-for="company in companies" :key="company.id">
+                Company: {{company.company}} <br>
+                City: {{company.city}} <br>
+                <label>Select this company</label> 
+                <input type="radio" v-bind:value="company.id" v-model="chosenCompanyId">
+            </li>
+        </ul>
+
+
+        <!-- Templates -->
+        <h3>Templates</h3>
+        <ul>
+            <li v-for="template in templates" :key="template.id">
+                Template: {{template.message}} <br>
+                <label>Select this template</label>
+                <input type="radio" v-bind:value="template.id" v-model="chosenTemplateId">
+            </li>
+        </ul>
+
+    </div>
+    
+
+    <script src="vendors/axios.js"></script>
+    <script src="vendors/vue.js"></script>
+    <script src="scripts/client.js"></script>
+
+</body>
+</html>
