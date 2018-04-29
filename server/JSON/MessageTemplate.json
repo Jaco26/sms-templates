@@ -1,15 +1,21 @@
 [
     {
         "id": 1,
-        "message": "Hello How are ya"
-
-    },
-    {
-        "id": 2,
-        "message": "It is sunny out"
-    },
-    {
-        "id": 3,
-        "message": "Pokadots"
+        "greeting": {
+            "morning": "Good morning",
+            "afternoon": "Good afternoon",
+            "evening": "Good evening"
+        },
+        "welcome": "Welcome to",
+        "ontime": {
+            "roomInfo": "is ready for you.",
+            "action": "Please enjoy your stay and let us know if you need anything!"
+        }, 
+        "early": {
+            "roomInfo": "is not quite ready for you.",
+            "readyAt": "It should be ready at",
+            "whileYouWait": "While you wait, you can enjoy the sights in"
+        }
     }
 ]
+

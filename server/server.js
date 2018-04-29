@@ -45,9 +45,11 @@ app.get('/message/:guestId/:companyId/:templateId', (req, res) => {
     let guestId = req.params.guestId;
     let companyId = req.params.companyId;
     let templateId = req.params.templateId;
-    let message = prepareMessageTemplate(guestId, companyId, templateId);
-    res.send(message);
+    // let message = prepareMessageTemplate(guestId, companyId, templateId);
+    let times = prepareMessageTemplate(guestId, companyId, templateId);
+    res.send(times);
 });
+
 
 function prepareMessageTemplate (guestId, companyId, templateId) {
     let guest = guests.filter(item => item.id == guestId)[0];
@@ -57,8 +59,8 @@ function prepareMessageTemplate (guestId, companyId, templateId) {
 }
 
 function generateMessage (guest, company, template) {
-    console.log(guest);
-    
     let message = new Message(guest, company, template);
-    return message.generate();
+    return message.isOntime();
 }
+
+
