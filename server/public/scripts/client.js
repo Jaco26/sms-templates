@@ -4,16 +4,14 @@ const app = new Vue({
         guests: [],
         companies: [],
         templates: [],
+        chosenGuest: {},
+        chosenCompany: {},
+        chosenTemplate: {},
         chosenGuestId: '',
         chosenCompanyId: '',
         chosenTemplateId: '',
-    },
-
-    mounted: function () {
-        this.getCompanies();
-        this.getGuests();
-        this.getTemplates();
-    },
+    }, 
+    // END data
     methods: {
         getCompanies () {
             axios.get('/companies')
@@ -25,7 +23,6 @@ const app = new Vue({
                     console.log(err);
                 });
         },
-
         getGuests () {
             axios.get('/guests')
                 .then(response => {
@@ -36,7 +33,6 @@ const app = new Vue({
                     console.log(err);
                 });
         },
-
         getTemplates () {
             axios.get('/templates')
             .then(response => { 
@@ -47,7 +43,6 @@ const app = new Vue({
                 console.log(err); 
             });
         },
-
         generateMessage () {
             let guestId = this.chosenGuestId;
             let companyId = this.chosenCompanyId;
@@ -58,15 +53,26 @@ const app = new Vue({
                 axios.get(`message/${guestId}/${companyId}/${templateId}`)
                     .then(response => {
                         console.log('GENERATE MESSAGE RESPONSE', response.data);
-
+                        this.chosenGuestId = '';
+                        this.chosenCompanyId = '';
+                        this.chosenTemplateId = '';
                     })
                     .catch(err => {
                         console.log(err);
 
                     });
             }
-        }
-    }
+        },
+
+    }, 
+    // END methods
+    mounted: function () {
+        this.getCompanies();
+        this.getGuests();
+        this.getTemplates();
+    },
+    // END mounted
+    
 });
 
 

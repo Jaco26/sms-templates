@@ -14,6 +14,17 @@
         <button v-on:click="generateMessage()">Generate Message</button>
         <!-- Guests -->
         <h3>Guests</h3>
+        <!-- <select v-model="chosenGuest">
+            <option selected disabled value="">Select A Guest</option>
+            <option v-for="guest in guests" :key="guest.id" v-bind:value="guest" >{{guest.firstName}} {{ guest.lastName}} </option>
+        </select>
+
+        <div v-if="chosenGuest">
+            Room Number: {{chosenGuest.reservation.roomNumber}} <br>
+            Reservation Start: {{new Date(chosenGuest.reservation.startTimestamp * 1000).toLocaleString()}} <br>
+            Reservation End: {{new Date(chosenGuest.reservation.endTimestamp * 1000).toLocaleString()}}
+        </div> -->
+
         <ul>
             <li v-for="guest in guests" :key="guest.id">
                 Name: {{guest.firstName + ' ' + guest.lastName}} <br>
