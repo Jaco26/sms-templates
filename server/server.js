@@ -55,12 +55,17 @@ function prepareMessageTemplate (guestId, companyId, templateId) {
     let guest = guests.filter(item => item.id == guestId)[0];
     let company = companies.filter(item => item.id == companyId)[0];
     let template = templates.filter(item => item.id == templateId)[0];
+    // console.log('GUEST ****** ', guest);
+    // console.log('COMPANY ****** ', company);
+    // console.log('TEMPLATE ****** ', template);
     return generateMessage(guest, company, template);
 }
 
 function generateMessage (guest, company, template) {
     let message = new Message(guest, company, template);
-    return message.isOntime();
+    // console.log('MESSAGE INSTANCE ****#####@@@@@******', message );
+    
+    return message.timeliness();
 }
 
 
