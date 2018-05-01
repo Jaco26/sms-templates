@@ -55,7 +55,7 @@
         <h3>Templates</h3>
         <ul>
             <li v-for="template in templates" :key="template.id">
-                <h4>Template {{template.id}}</h4>
+                <h4>Template {{template.id}}: {{template.title}} </h4>
                 <p> Good (morning, afternoon, evening) {{template.welcome}} {{template.roomInfo}} {{template.action}} </p>
                 <label>Select this template</label>
                 <input type="radio" v-bind:value="template.id" v-model="chosenTemplateId">

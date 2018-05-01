@@ -27,7 +27,6 @@ class Message {
     timeOfDayForGreeting () {   
         const company = this.company;
         const guest = this.guest;    
-        // const now = this.now;
         // convert guest.reservation.startTimestamp into a JavaScript Date instance
         let start = new Date(guest.reservation.startTimestamp * 1000 );
         // Create new instance of ReservationDate and call its convertToUTC method
@@ -35,10 +34,7 @@ class Message {
         // Destructure UTC number values from UTCStart
         let { year, month, day, hour, minute } = resStartInUTC;
         // Get reservation date and time adjusted for company's timezone 
-        // let reservationStartDate = DateTime.local(year, month, day, hour, minute).setLocale('en-US').setZone(convertTz[company.timezone]);        
         let reservationStartDate = DateTime.utc(year, month, day, hour, minute).setLocale('en-US').setZone(convertTz[company.timezone]); 
-        console.log(reservationStartDate);
-        
         let morningCondition = reservationStartDate.startOf('day').plus({ hours: 12 }).ts;
         let afternoonCondition = reservationStartDate.startOf('day').plus({ hours: 17 }).ts;
         let eveningCondition = reservationStartDate.startOf('day').plus({ hours: 24 }).ts;
