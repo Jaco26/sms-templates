@@ -10,6 +10,7 @@ const app = new Vue({
         chosenGuestId: '',
         chosenCompanyId: '',
         chosenTemplateId: '',
+        message: '',
     }, 
     // END data
     methods: {
@@ -56,6 +57,7 @@ const app = new Vue({
                         this.chosenGuestId = '';
                         this.chosenCompanyId = '';
                         this.chosenTemplateId = '';
+                        this.message = response.data;
                     })
                     .catch(err => {
                         console.log(err);

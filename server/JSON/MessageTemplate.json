@@ -15,7 +15,22 @@
             "roomInfo": "is not quite ready for you.",
             "readyAt": "It should be ready at",
             "whileYouWait": "While you wait, you can enjoy the sights in"
+        },
+        "late": {
+            "roomInfo": "Because you were late, we have given your romm to someone else" 
         }
+    },
+    {
+        "id": 2,
+        "greeting": {
+            "morning": "Good morning NAME",
+            "afternoon": "Good afternoon NAME",
+            "evening": "Good evening NAME"
+        },
+        "welcome": "and welcome to HOTEL!",
+        "roomInfo": "Room ROOM_NUMBER is ready for you.",
+        "action": "Please enjoy your time in CITY and please ask if you need anything!"
+
     }
 ]
 

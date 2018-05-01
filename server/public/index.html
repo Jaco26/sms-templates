@@ -12,6 +12,9 @@
     <div id="app">
         
         <button v-on:click="generateMessage()">Generate Message</button>
+
+        <p> {{message}} </p>
+
         <!-- Guests -->
         <h3>Guests</h3>
         <!-- <select v-model="chosenGuest">
@@ -28,9 +31,9 @@
         <ul>
             <li v-for="guest in guests" :key="guest.id">
                 Name: {{guest.firstName + ' ' + guest.lastName}} <br>
-                Room Reserved: {{guest.reservation.roomNumber}} <br>
+                <!-- Room Reserved: {{guest.reservation.roomNumber}} <br> -->
                 Start: {{new Date(guest.reservation.startTimestamp * 1000).toLocaleString()}} <br>
-                End: {{new Date(guest.reservation.endTimestamp * 1000).toLocaleString()}} <br>
+                <!-- End: {{new Date(guest.reservation.endTimestamp * 1000)}} <br> -->
                 <label>Select this customer</label>
                 <input type="radio" v-bind:value="guest.id" v-model="chosenGuestId">
             </li>
@@ -52,7 +55,8 @@
         <h3>Templates</h3>
         <ul>
             <li v-for="template in templates" :key="template.id">
-                Template: {{template.message}} <br>
+                <h4>Template {{template.id}}</h4>
+                <p> Good (morning, afternoon, evening) {{template.welcome}} {{template.roomInfo}} {{template.action}} </p>
                 <label>Select this template</label>
                 <input type="radio" v-bind:value="template.id" v-model="chosenTemplateId">
             </li>

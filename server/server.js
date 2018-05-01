@@ -45,9 +45,8 @@ app.get('/message/:guestId/:companyId/:templateId', (req, res) => {
     let guestId = req.params.guestId;
     let companyId = req.params.companyId;
     let templateId = req.params.templateId;
-    // let message = prepareMessageTemplate(guestId, companyId, templateId);
-    let times = prepareMessageTemplate(guestId, companyId, templateId);
-    res.send(times);
+    let message = prepareMessageTemplate(guestId, companyId, templateId);
+    res.send(message);
 });
 
 
@@ -55,17 +54,12 @@ function prepareMessageTemplate (guestId, companyId, templateId) {
     let guest = guests.filter(item => item.id == guestId)[0];
     let company = companies.filter(item => item.id == companyId)[0];
     let template = templates.filter(item => item.id == templateId)[0];
-    // console.log('GUEST ****** ', guest);
-    // console.log('COMPANY ****** ', company);
-    // console.log('TEMPLATE ****** ', template);
     return generateMessage(guest, company, template);
 }
 
 function generateMessage (guest, company, template) {
     let message = new Message(guest, company, template);
-    // console.log('MESSAGE INSTANCE ****#####@@@@@******', message );
-    
-    return message.timeliness();
+    return message.generate();
 }
 
 
