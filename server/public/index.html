@@ -53,14 +53,37 @@
 
         <!-- Templates -->
         <h3>Templates</h3>
+        <!-- <button v-on:click="showshow()"></button> -->
+        <label>Create Custom Template Content</label>
+        <button v-on:click="showForm = !showForm">Create</button>
+        <div v-show="showForm">
+            <form v-on:submit.prevent="submitNewTemplateContent()">
+                <label for="temp-title">Title:</label>
+                <input type="text" id="temp-title" v-model="newTemplateContent.title">
+                <!-- <label for="temp-greeting">Greeting:</label>
+                <input type="text" id="temp-greeting" v-model="newTemplateContent.greeting"> -->
+                <label for="temp-welcome">Welcome:</label>
+                <input type="text" id="temp-welcome" v-model="newTemplateContent.welcome">
+                <label for="temp-roomInfo">Room Info:</label>
+                <input type="text" id="temp-roomInfo" v-model="newTemplateContent.roomInfo">
+                <label for="temp-action">Action:</label>
+                <input type="text" id="temp-action" v-model="newTemplateContent.action">
+                <input type="submit" name="" id="" value="submit">
+            </form>
+           
+        </div>  
+
         <ul>
             <li v-for="template in templates" :key="template.id">
                 <h4>Template {{template.id}}: {{template.title}} </h4>
                 <p> Good (morning, afternoon, evening) {{template.welcome}} {{template.roomInfo}} {{template.action}} </p>
                 <label>Select this template</label>
                 <input type="radio" v-bind:value="template.id" v-model="chosenTemplateId">
+                
             </li>
         </ul>
+
+
 
     </div>
     

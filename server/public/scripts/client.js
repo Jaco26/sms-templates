@@ -4,13 +4,18 @@ const app = new Vue({
         guests: [],
         companies: [],
         templates: [],
-        // chosenGuest: {},
-        // chosenCompany: {},
-        // chosenTemplate: {},
         chosenGuestId: '',
         chosenCompanyId: '',
         chosenTemplateId: '',
         message: '',
+        showForm: false,
+        newTemplateContent: {
+            title: '',
+            greeting: '',
+            welcome: '',
+            roomInfo: '',
+            action: '',
+        }
     }, 
     // END data
     methods: {
@@ -65,6 +70,26 @@ const app = new Vue({
                     });
             }
         },
+
+        submitNewTemplateContent () {
+            let {title, welcome, roomInfo, action} = this.newTemplateContent;
+            if(!title || !welcome || !roomInfo || !action){
+                alert('Make sure to completely fill in content for each input')
+            } else {
+                axios.post('/new_template_content', this.newTemplateContent)
+                .then(response => {
+                    this.showForm = !this.showForm;
+                    this.getTemplates();
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+            }
+
+            
+            console.log('HEy');
+            
+        }
 
     }, 
     // END methods

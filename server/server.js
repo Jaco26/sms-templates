@@ -12,6 +12,9 @@ const templates = require('./JSON/MessageTemplate.json');
 // Message class
 const Message = require('./modules/message.class');
 
+// NewTemplate class
+const NewTemplate = require('./modules/NewTemplate'); 
+
 // use body-parser middleware
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -48,6 +51,16 @@ app.get('/message/:guestId/:companyId/:templateId', (req, res) => {
     let message = prepareMessageTemplate(guestId, companyId, templateId);
     res.send(message);
 });
+
+app.post('/new_template_content', (req, res) => {
+    let newTemplateContent = req.body;
+    newTemplateContent.id = templates.length + 1;
+    let newTemplate = new NewTemplate(newTemplateContent).generate();
+    templates.push(newTemplate);
+    console.log('TEMPLATES TEMPLATES:', templates);
+    
+    res.sendStatus(200);
+})
 
 
 function prepareMessageTemplate (guestId, companyId, templateId) {

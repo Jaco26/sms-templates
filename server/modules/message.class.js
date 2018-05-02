@@ -12,7 +12,7 @@ class Message {
         let guest = this.guest;
         let company = this.company;
         let template = this.template;
-        let timeOfDay = this.timeOfDayForGreeting();
+        let timeOfDay = this.timeOfDayForGreeting();    
         let message = `
             ${template.greeting[timeOfDay].replace('NAME', guest.firstName)} 
             ${template.welcome.replace('HOTEL', company.company)} 
@@ -24,20 +24,20 @@ class Message {
     timeOfDayForGreeting () {   
         // convert guest.reservation.startTimestamp into a JavaScript Date instance
         let start = new Date(this.guest.reservation.startTimestamp * 1000 );
-        // Create new instance of ReservationDate and call its convertToUTC method
+        // Create new instance of ReservationDate and call its convertToUTC method.
+        // Destructure the returned object so that its UTC date numbers can be passed into
+        // the DateTime.utc method
         let { year, month, day, hour, minute } = new ReservationDate(start).convertToUTC();
-        // Destructure UTC number values from UTCStart
-        // let { year, month, day, hour, minute } = resStartInUTC;
         // Get reservation date and time adjusted for company's timezone 
         let reservationStartDate = DateTime.utc(year, month, day, hour, minute).setLocale('en-US').setZone(convertTz[this.company.timezone]); 
-        let morningCondition = reservationStartDate.startOf('day').plus({ hours: 12 }).ts;
-        let afternoonCondition = reservationStartDate.startOf('day').plus({ hours: 17 }).ts;
-        let eveningCondition = reservationStartDate.startOf('day').plus({ hours: 24 }).ts;
-        if (reservationStartDate.ts < morningCondition ) {
+        let maxMorning = reservationStartDate.startOf('day').plus({ hours: 12 }).ts;
+        let maxAfternoon = reservationStartDate.startOf('day').plus({ hours: 17 }).ts;
+        let maxEvening = reservationStartDate.startOf('day').plus({ hours: 24 }).ts;
+        if (reservationStartDate.ts < maxMorning ) {
             return 'morning';
-        } else if ( reservationStartDate.ts < afternoonCondition) {
+        } else if ( reservationStartDate.ts < maxAfternoon) {
             return 'afternoon';
-        } else if (reservationStartDate.ts < eveningCondition) {
+        } else if (reservationStartDate.ts < maxEvening) {
             return 'evening';
         }
     }
