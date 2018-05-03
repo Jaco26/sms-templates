@@ -11,7 +11,6 @@ const app = new Vue({
         showCreateForm: false,
         newTemplateContent: {
             title: '',
-            greeting: '',
             welcome: '',
             roomInfo: '',
             action: '',
@@ -20,7 +19,7 @@ const app = new Vue({
     // END data
     methods: {
         getCompanies () {
-            axios.get('/companies')
+            axios.get('/api/companies')
                 .then(response => {
                     this.companies = response.data;
                     // console.log('THIS.COMPANIES:', this.companies);
@@ -30,7 +29,7 @@ const app = new Vue({
                 });
         },
         getGuests () {
-            axios.get('/guests')
+            axios.get('/api/guests')
                 .then(response => {
                     this.guests = response.data;
                     // console.log('THIS.GUESTS:', this.guests);
@@ -40,7 +39,7 @@ const app = new Vue({
                 });
         },
         getTemplates () {
-            axios.get('/templates')
+            axios.get('/api/templates')
             .then(response => { 
                 this.templates = response.data;
                 // console.log('THIS.TEMPLATES:', response.data);
@@ -56,7 +55,7 @@ const app = new Vue({
             if(!guestId || !companyId || !templateId){
                 alert('Oops! You need to choose a guest, a company and a template for us to generate a message.')
             } else {
-                axios.get(`message/${guestId}/${companyId}/${templateId}`)
+                axios.get(`/api/message/${guestId}/${companyId}/${templateId}`)
                     .then(response => {
                         console.log('GENERATE MESSAGE RESPONSE', response.data);
                         this.chosenGuestId = '';
@@ -76,10 +75,11 @@ const app = new Vue({
             if(!title || !welcome || !roomInfo || !action){
                 alert('Make sure to completely fill in content for each input')
             } else {
-                axios.post('/new_template_content', this.newTemplateContent)
+                axios.post('/api/new_template_content', this.newTemplateContent)
                 .then(response => {
-                    this.showCreateForm = !this.showForm;
                     this.getTemplates();
+                    this.showCreateForm = !this.showCreateForm;
+                    this.newTemplateContent = {};
                 })
                 .catch(err => {
                     console.log(err);

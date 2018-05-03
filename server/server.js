@@ -32,19 +32,19 @@ app.listen(port, () => {
 // handle requests ///////
 /////////////////////////
 
-app.get('/companies', (req, res) => {
+app.get('/api/companies', (req, res) => {
     res.send(companies);
 });
 
-app.get('/guests', (req, res) => {
+app.get('/api/guests', (req, res) => {
     res.send(guests);
 });
 
-app.get('/templates', (req, res) => {
+app.get('/api/templates', (req, res) => {
     res.send(templates);
 });
 
-app.get('/message/:guestId/:companyId/:templateId', (req, res) => {
+app.get('/api/message/:guestId/:companyId/:templateId', (req, res) => {
     let guestId = req.params.guestId;
     let companyId = req.params.companyId;
     let templateId = req.params.templateId;
@@ -52,7 +52,7 @@ app.get('/message/:guestId/:companyId/:templateId', (req, res) => {
     res.send(message);
 });
 
-app.post('/new_template_content', (req, res) => {
+app.post('/api/new_template_content', (req, res) => {
     let newTemplateContent = req.body;
     newTemplateContent.id = templates.length + 1;
     let newTemplate = new NewTemplate(newTemplateContent).generate();
