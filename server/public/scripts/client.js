@@ -8,7 +8,7 @@ const app = new Vue({
         chosenCompanyId: '',
         chosenTemplateId: '',
         message: '',
-        showForm: false,
+        showCreateForm: false,
         newTemplateContent: {
             title: '',
             greeting: '',
@@ -78,7 +78,7 @@ const app = new Vue({
             } else {
                 axios.post('/new_template_content', this.newTemplateContent)
                 .then(response => {
-                    this.showForm = !this.showForm;
+                    this.showCreateForm = !this.showForm;
                     this.getTemplates();
                 })
                 .catch(err => {

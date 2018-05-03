@@ -10,7 +10,7 @@ const guests = require('./JSON/Guests.json');
 const templates = require('./JSON/MessageTemplate.json');
 
 // Message class
-const Message = require('./modules/message.class');
+const Message = require('./modules/Message');
 
 // NewTemplate class
 const NewTemplate = require('./modules/NewTemplate'); 
@@ -57,10 +57,8 @@ app.post('/new_template_content', (req, res) => {
     newTemplateContent.id = templates.length + 1;
     let newTemplate = new NewTemplate(newTemplateContent).generate();
     templates.push(newTemplate);
-    console.log('TEMPLATES TEMPLATES:', templates);
-    
     res.sendStatus(200);
-})
+});
 
 
 function prepareMessageTemplate (guestId, companyId, templateId) {

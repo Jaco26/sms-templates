@@ -1,5 +1,6 @@
 const { DateTime } = require('luxon');
-const { ReservationDate, convertTz} = require('./conversion');
+const ReservationDate = require('./ReservationDate');
+const TimeZone = require('./Timezone');
 
 class Message {
     constructor (guest, company, template) {
@@ -21,7 +22,8 @@ class Message {
         return message;
     }
     
-    timeOfDayForGreeting () {   
+    timeOfDayForGreeting () {  
+        let companyTimezone = new TimeZone(this.company.timezone).convert(); 
         // convert guest.reservation.startTimestamp into a JavaScript Date instance
         let start = new Date(this.guest.reservation.startTimestamp * 1000 );
         // Create new instance of ReservationDate and call its convertToUTC method.
@@ -29,7 +31,7 @@ class Message {
         // the DateTime.utc method
         let { year, month, day, hour, minute } = new ReservationDate(start).convertToUTC();
         // Get reservation date and time adjusted for company's timezone 
-        let reservationStartDate = DateTime.utc(year, month, day, hour, minute).setLocale('en-US').setZone(convertTz[this.company.timezone]); 
+        let reservationStartDate = DateTime.utc(year, month, day, hour, minute).setLocale('en-US').setZone(companyTimezone); 
         let maxMorning = reservationStartDate.startOf('day').plus({ hours: 12 }).ts;
         let maxAfternoon = reservationStartDate.startOf('day').plus({ hours: 17 }).ts;
         let maxEvening = reservationStartDate.startOf('day').plus({ hours: 24 }).ts;
