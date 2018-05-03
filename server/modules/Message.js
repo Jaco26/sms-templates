@@ -22,8 +22,6 @@ class Message {
         return message;
     }
 
-
-
     buildGreeting () {
         let timeOfDay = this.timeOfDayForGreeting();  
         return this.template.greeting[timeOfDay].split(' ').map(word => {
