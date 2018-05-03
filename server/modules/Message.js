@@ -62,6 +62,9 @@ class Message {
         return result.join(' ');
     }
 
+    // buildWelcome, buildRoomInfo and buildAction are all nearly identical to buildGreeting
+    // I chose not to use the reduce method in favor of readability.
+
     buildWelcome () {
         return this.template.welcome.split(' ').map(word => {
             let punctuation;
