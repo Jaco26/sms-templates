@@ -7,19 +7,94 @@ class Message {
         this.guest = guest;
         this.company = company;
         this.template = template;
+        this.keyMap = {
+            'NAME': this.guest.firstName,
+            'FULL_NAME': this.guest.firstName + ' ' + this.guest.lastName,
+            'HOTEL': this.company.company,
+            'ROOM_NUMBER': this.guest.reservation.roomNumber,
+            'ROOMNUMBER': this.guest.reservation.roomNumber,
+            'CITY': this.company.city
+        };
     }
 
     generate () {
-        let guest = this.guest;
-        let company = this.company;
-        let template = this.template;
-        let timeOfDay = this.timeOfDayForGreeting();    
-        let message = `
-            ${template.greeting[timeOfDay].replace('NAME', guest.firstName)} 
-            ${template.welcome.replace('HOTEL', company.company)} 
-            ${template.roomInfo.replace('ROOM_NUMBER', guest.reservation.roomNumber)} 
-            ${template.action.replace('CITY', company.city)}`;
+        let message = `${this.buildGreeting()} ${this.buildWelcome()} ${this.buildRoomInfo()} ${this.buildAction()}`;
         return message;
+    }
+
+
+
+    buildGreeting () {
+        let timeOfDay = this.timeOfDayForGreeting();  
+        return this.template.greeting[timeOfDay].split(' ').map(word => {
+            let punctuation;
+            if (/\W/g.test(word)) {
+                punctuation = word.match(/\W/g);
+            }
+            if (this.keyMap[word.replace(/\W/g, '')]) {
+                if (punctuation) {
+                    return word = this.keyMap[word.replace(/\W/g, '')] + punctuation.join('');
+                } else {
+                    return word = this.keyMap[word.replace(/\W/g, '')]
+                }
+            } else {
+                return word;
+            }
+        }).join(' ');
+    }
+
+    buildWelcome () {
+        return this.template.welcome.split(' ').map(word => {
+            let punctuation;
+            if (/\W/g.test(word)) {
+                punctuation = word.match(/\W/g);
+            }
+            if (this.keyMap[word.replace(/\W/g, '')]) {
+                if (punctuation) {
+                    return word = this.keyMap[word.replace(/\W/g, '')] + punctuation.join('');
+                } else {
+                    return word = this.keyMap[word.replace(/\W/g, '')]
+                }
+            } else {
+                return word;
+            }
+        }).join(' ');
+    }
+
+    buildRoomInfo () {
+        return this.template.roomInfo.split(' ').map(word => {
+            let punctuation;
+            if (/\W/g.test(word)) {
+                punctuation = word.match(/\W/g);
+            }
+            if (this.keyMap[word.replace(/\W/g, '')]) {
+                if (punctuation) {
+                    return word = this.keyMap[word.replace(/\W/g, '')] + punctuation.join('');
+                } else {
+                    return word = this.keyMap[word.replace(/\W/g, '')]
+                }
+            } else {
+                return word;
+            }
+        }).join(' ');
+    }
+
+    buildAction() {
+        return this.template.action.split(' ').map(word => {
+            let punctuation;
+            if (/\W/g.test(word)) {
+                punctuation = word.match(/\W/g);
+            }
+            if (this.keyMap[word.replace(/\W/g, '')]) {
+                if (punctuation) {
+                    return word = this.keyMap[word.replace(/\W/g, '')] + punctuation.join('');
+                } else {
+                    return word = this.keyMap[word.replace(/\W/g, '')]
+                }
+            } else {
+                return word;
+            }
+        }).join(' ');
     }
     
     timeOfDayForGreeting () {  
